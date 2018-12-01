@@ -1,0 +1,24 @@
+{
+  "name": "liri-bot",
+  "version": "1.0.0",
+  "description": "query to spotify, bands in town, omdb",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agenaeu/liri-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agenaeu/liri-bot/issues"
+  },
+  "homepage": "https://github.com/agenaeu/liri-bot#readme",
+  "dependencies": {
+    "bandsintown": "^1.0.1",
+    "omdb": "^0.8.0",
+    "spotify": "^0.3.0"
+  }
+}
