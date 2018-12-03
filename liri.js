@@ -6,8 +6,8 @@ let keys = require("./keys.js");
 
 
 let Spotify = require("node-spotify-api")
-let omdb = require("omdb");
-let bandsintown = require('bandsintown');/* (APP_ID); */
+var omdbApi = require('omdb-client');
+var Events = new BandsInTownEvents();
 
 
 let spotify = new Spotify(keys.spotify);
@@ -37,34 +37,46 @@ spotify.search({ type: 'track', query: "'" + command + "'" }, function(err, data
 }
 
 function omdbRequest(){
-    
-
-    omdb.search(command, function(err, movies) {
-        if(err) {
-            return console.error(err);
+    var params = {
+        apiKey: Omdb,
+        title: command
+    }
+    omdbApi.get(params, function(err, data) {
+        if (err){
+            console.log(err);
+        }else{
+            console.log("Title : " + data.Title);
+            console.log("Year : " + data.Year);
+            console.log("IMDB Rating : " + data.Ratings[2].Value);
+            console.log("Rotten Tomatoes Rating : " + data.Ratings[1].Value);
+            console.log("Country : " + data.Country);
+            console.log("Language : " + data.Language);
+            console.log("Plot : " + data.Plot);
+            console.log("Actors : " + data.Actors);
         }
-     
-        if(movies.length < 1) {
-            return console.log('No movies were found!');
+        if (data < 1) {
+            return console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/ It is on Netflix!")
         }
-     
-        movies.forEach(function(movie) {
-            console.log('%s (%d)', movie.title, movie.year);
-        });
-     
-        // Saw (2004)
-        // Saw II (2005)
-        // Saw III (2006)
-        // Saw IV (2007)
-        // ...
     });
 }
 
 function bandsInTown(){
-    bandsintown
-  .getArtistEventList('Skrillex')
-  .then(function(events) {
-    // return array of events
+    //set options for instance
+//app_id and artists are required
+Events.setParams({
+    "app_id":"liri-bot", //can be anything
+    "artists":[ //accepts string for single artist or an array of artist names
+      "Linkinpark"
+    ]
+  });
+   
+  //get your events with success and error callbacks
+  Events.getEvents(function( events ){
+    for(var i = 0; i < events.length; i++){
+      console.log( events[i].venue.city + ", " + events[i].venue.region );
+    }
+  },function( errors ){
+    console.log(errors);
   });
 }
 
@@ -75,7 +87,7 @@ function bandsInTown(){
 }); */
 switch (action) {
     case "concert-this":
-        // some function here
+        bandsInTown();
         break;
     case "spotify-this-song":
         searchSpotify();
