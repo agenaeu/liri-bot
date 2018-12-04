@@ -1,18 +1,12 @@
 require("dotenv").config();
 let keys = require("./keys.js");
-
-// console.log("keys omdb : ", keys.omdb);
-// console.log("keys spotify : ", keys.spotify);
-
-
 let Spotify = require("node-spotify-api")
 var omdbApi = require('omdb-client');
-var Events = new BandsInTownEvents();
-
-
+let moment = require('moment');
 let spotify = new Spotify(keys.spotify);
 let Omdb = (keys.omdb);
-//console.log(keys.omdb);
+let fs = require('fs');
+let fileName = "./random.txt";
 
 let action = process.argv[2];
 let command = process.argv.slice(3).join(" ");
@@ -61,30 +55,32 @@ function omdbRequest(){
 }
 
 function bandsInTown(){
-    //set options for instance
-//app_id and artists are required
-Events.setParams({
-    "app_id":"liri-bot", //can be anything
-    "artists":[ //accepts string for single artist or an array of artist names
-      "Linkinpark"
-    ]
-  });
-   
-  //get your events with success and error callbacks
-  Events.getEvents(function( events ){
-    for(var i = 0; i < events.length; i++){
-      console.log( events[i].venue.city + ", " + events[i].venue.region );
-    }
-  },function( errors ){
-    console.log(errors);
-  });
+    request("https://rest.bandsintown.com/artists/" + command + "/events?app_id=codingbootcamp", function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            JSON.parse(body).forEach(element => {
+                console.log("Name of the venue: " + element.venue.name);
+                console.log("Venue location:" + element.venue.city);
+                console.log("Date of the Event: " + moment(element.datetime, "YYYY-MM-DD").format("MM/DD/YYYY") + "\n");
+            });
+        }
+    });
 }
 
-/* request('http://www.google.com', function (error, response, body) {
-    console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
-}); */
+function doWhatItSays() {
+    fs.readFile('random.txt', "utf8", function (error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        console.log(data);
+        let dataArr = data.split(',');
+        console.log(dataArr);
+        searchSpotify(dataArr[0], dataArr[1]);
+        
+       /*  userInput(dataArr[0], dataArr[1]); */
+    });
+};
+
+//function userInput(){
 switch (action) {
     case "concert-this":
         bandsInTown();
@@ -96,6 +92,9 @@ switch (action) {
         omdbRequest();
         break;
     case "do-what-it-says":
-        // some function here
+        doWhatItSays();
         break;
-}
+    default: 
+        results = "Not found";
+};
+//}
