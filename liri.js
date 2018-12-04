@@ -67,15 +67,15 @@ function bandsInTown(){
 }
 
 function doWhatItSays() {
-    fs.readFile('random.txt', "utf8", function (error, data) {
+    fs.readFile(fileName, "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
         console.log(data);
         let dataArr = data.split(',');
         console.log(dataArr);
-        searchSpotify(dataArr[0], dataArr[1]);
-        
+        //searchSpotify(dataArr[0], dataArr[1]);
+         
        /*  userInput(dataArr[0], dataArr[1]); */
     });
 };
