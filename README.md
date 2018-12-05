@@ -9,3 +9,7 @@ Examples would be
 * ![Alt text](https://github.com/agenaeu/liri-bot/blob/master/images/spotify-this-song.png)
 * node liri.js concert-this smashing pumpkins
 * ![Alt text](https://github.com/agenaeu/liri-bot/blob/master/images/concert-this.png)
+* node liri.js movie-this interstellar
+* ![Alt text](https://github.com/agenaeu/liri-bot/blob/master/images/movie-this.png)
+* node liri.js do-what-it-says
+* ![Alt text](https://github.com/agenaeu/liri-bot/blob/master/images/do-what-it-says.png)
