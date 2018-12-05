@@ -6,5 +6,6 @@ Lastly you will add either the band name, song name, or movie name.
 For do-what-it-says you dont have to follow with anything.
 Examples would be 
 * node liri.js spotify-this-song faithfully
-* ![Alt text](https://github.com/agenaeu/liri-bot/blob/master/images/do-what-it-says.png)
+* ![Alt text](https://github.com/agenaeu/liri-bot/blob/master/images/spotify-this-song.png)
 * node liri.js concert-this smashing pumpkins
+* ![Alt text](https://github.com/agenaeu/liri-bot/blob/master/images/concert-this.png)
