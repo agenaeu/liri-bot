@@ -74,7 +74,8 @@ function doWhatItSays() {
         console.log(data);
         let dataArr = data.split(',');
         console.log(dataArr);
-        //searchSpotify(dataArr[0], dataArr[1]);
+        command = dataArr[1];
+        searchSpotify();
          
        /*  userInput(dataArr[0], dataArr[1]); */
     });
